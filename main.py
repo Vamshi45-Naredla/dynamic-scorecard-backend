@@ -7,7 +7,10 @@ app = FastAPI()
 # Enable CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://your-frontend-url.com"],  # Replace with your frontend's URL
+    allow_origins=[
+        "https://dynamic-scorecard-frontend.vercel.app",  # Your Vercel frontend URL
+        "http://localhost:3000"  # Localhost for testing (optional)
+    ],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
@@ -19,7 +22,7 @@ app.include_router(score_calculation.router)
 app.include_router(visualization.router)
 app.include_router(export.router)
 
-# Test endpoint
+# Root endpoint
 @app.get("/")
 async def root():
     return {"message": "Dynamic Scorecard Tool is running"}
